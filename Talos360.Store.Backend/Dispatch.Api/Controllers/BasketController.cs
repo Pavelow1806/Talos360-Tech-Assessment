@@ -40,7 +40,7 @@ namespace Dispatch.Api.Controllers
         [Route("remove")]
         public RemoveFromBasketResponse Remove([FromBody]RemoveFromBasketRequest request)
         {
-            return _basketService.RemoveFromBasket(request.BasketItemId);
+            return _basketService.RemoveFromBasket(request.ProductId);
         }
         [HttpGet]
         [Route("clear")]

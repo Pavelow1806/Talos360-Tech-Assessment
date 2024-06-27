@@ -43,7 +43,7 @@ namespace Dispatch.Api.Services.Basket
                     ProductId = p.ProductId,
                     Name = p.Name,
                     SupplierId = p.SupplierId,
-                    Quantity = 1
+                    Quantity = _dbContext.BasketItems[p.ProductId]
                 })
                 .GroupBy(p => p.ProductId)
                 .Select(g => new GroupedBasketItem
@@ -51,7 +51,7 @@ namespace Dispatch.Api.Services.Basket
                     ProductId = g.First().ProductId,
                     Name = g.First().Name,
                     SupplierId = g.First().SupplierId,
-                    Quantity = g.Count()
+                    Quantity = g.Sum(p => p.Quantity)
                 })
                 .ToList();
         }

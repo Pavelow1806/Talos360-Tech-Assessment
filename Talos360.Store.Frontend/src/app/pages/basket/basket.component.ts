@@ -1,21 +1,28 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { BasketItem, GroupedBasketItem } from './basket.types';
 import { BasketService } from './basket.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { GroupedBasketItem } from './basket.types';
+import { StoreService } from '../store/store.service';
 
 @UntilDestroy()
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./basket.component.scss']
 })
 export class BasketComponent {
   loaded = false;
   error = false;
   groupedBasketItems: GroupedBasketItem[] = [];
+  displayedColumns = [
+    "productId",
+    "name",
+    "supplierName",
+    "quantity",
+    "control"
+  ]
 
-  constructor(private basketService: BasketService, private change: ChangeDetectorRef) {}
+  constructor(private basketService: BasketService, private storeService: StoreService) {}
 
   ngOnInit(): void {
     this.load();
@@ -27,30 +34,24 @@ export class BasketComponent {
     this.basketService.get()
     .pipe(untilDestroyed(this))
     .subscribe(basket => {
-      console.log(basket.length, "lenth")
-      const stage1 = basket
-      .sort((p, c) => p.dateAdded > c.dateAdded ? 1 : -1)
-      .map((i: BasketItem): GroupedBasketItem => {
+      this.groupedBasketItems = basket
+      .map(i => {
         return {
           ...i,
-          quantity: 1
-        };
-      });
-      console.log(stage1)
-      this.groupedBasketItems = stage1.reduce((a: GroupedBasketItem[], c) => {
-        const group = a.find(i => i.productId);
-        console.log(a.length, c.productId, group !== undefined);
-        if (group) {
-          group.quantity++;
-          return a;
-        } else {
-          a.push(c);
-          return a;
+          supplier: this.storeService.supplier(i.supplierId)
         }
-      }, [] as GroupedBasketItem[]);
-      this.change.markForCheck();
-      console.log("grouped items", this.groupedBasketItems);
+      });
       this.loaded = true;
     });
+  }
+  remove(element: GroupedBasketItem) {
+    this.basketService.remove({productId: element.productId})
+    .pipe(untilDestroyed(this))
+    .subscribe();
+  }
+  add(element: GroupedBasketItem) {
+    this.basketService.add({productId: element.productId})
+    .pipe(untilDestroyed(this))
+    .subscribe();
   }
 }

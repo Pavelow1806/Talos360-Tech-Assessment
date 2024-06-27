@@ -33,6 +33,7 @@ namespace Dispatch.Api.Controllers
                                                         .Where(p => p.SupplierId == s.SupplierId)
                                                         .ToList())
                 )
+                .Where(s => s.Products.Count() > 0)
                 .ToList();
             return new StoreResponse { Suppliers = storeSuppliers };
         }

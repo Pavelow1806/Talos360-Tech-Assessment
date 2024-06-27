@@ -1,7 +1,10 @@
-import { Product, ResponseBase } from "src/app/shared/shared.types";
+import { Product, ResponseBase, Supplier } from "src/app/shared/shared.types";
 
 export interface GroupedBasketItem extends Product {
     quantity: number;
+
+    // Local only
+    supplier?: Supplier;
 }
 export interface BasketResponse extends ResponseBase {
     basketItems: GroupedBasketItem[];
@@ -10,6 +13,9 @@ export interface AddToBasketRequest {
     productId: number;
 }
 export interface AddToBasketResponse extends ResponseBase {
+}
+export interface RemoveFromBasketRequest {
+    productId: number;
 }
 export interface RemoveFromBasketResponse extends ResponseBase {
 }

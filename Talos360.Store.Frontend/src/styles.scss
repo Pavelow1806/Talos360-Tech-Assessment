@@ -32,3 +32,12 @@ app-root {
 .small-gap {
     gap: 5px;
 }
+.clickable {
+    cursor: pointer;
+}
+.hover-opacity {
+    opacity: 0.5;
+    &:hover {
+        opacity: 1;
+    }
+}

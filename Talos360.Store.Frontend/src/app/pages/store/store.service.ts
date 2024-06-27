@@ -29,4 +29,18 @@ export class StoreService {
     });
     return this.$suppliers.asObservable();
   }
+  supplier(supplierId: number) {
+    var suppliers = this.$suppliers.value;
+    if (suppliers && typeof(suppliers) !== "string") {
+      return suppliers.find(s => s.supplierId === supplierId);
+    }
+    return undefined;
+  }
+  product(productId: number) {
+    var suppliers = this.$suppliers.value;
+    if (suppliers && typeof(suppliers) !== "string") {
+      return suppliers.flatMap(s => s.products).find(p => p.productId === productId);
+    }
+    return undefined;
+  }
 }

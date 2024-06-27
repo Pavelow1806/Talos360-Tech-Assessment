@@ -20,7 +20,10 @@ export class StoreProductComponent implements OnInit {
     this.basketService.basket
     .pipe(untilDestroyed(this))
     .subscribe(basket => {
-      this.currentItemCount = basket.filter(i => i.productId === this.product.productId).length
+      const item = basket.find(i => i.productId === this.product.productId);
+      if (item) {
+        this.currentItemCount = item.quantity;
+      }
     });
   }
 
