@@ -1,3 +1,19 @@
-<app-max-width>
-    <h1>Basket</h1>
-</app-max-width>
+<app-scrollable>
+    <app-max-width>
+        <h1>Basket</h1>
+        <div class="column gap" *ngIf="!loaded && !error">
+            <h3>Loading</h3>
+            <app-spinner></app-spinner>
+        </div>
+        <div class="column gap" *ngIf="!loaded && error">
+            <h3>Error</h3>
+            <div>There was an issue loading the store, click to try again.</div>
+            <button (click)="load()">
+                Retry
+            </button>
+        </div>
+        <div class="column gap" *ngIf="loaded">
+            <app-basket-product *ngFor="let groupedBasketItem of groupedBasketItems" [groupedBasketItem]="groupedBasketItem"></app-basket-product>
+        </div>
+    </app-max-width>
+</app-scrollable>

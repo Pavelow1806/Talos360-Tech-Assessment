@@ -1,1 +1,4 @@
-<p>store-supplier works!</p>
+<h4>{{supplier.name}}</h4>
+<div class="products row small-gap">
+    <app-store-product *ngFor="let product of supplier.products" [product]="product"></app-store-product>
+</div>

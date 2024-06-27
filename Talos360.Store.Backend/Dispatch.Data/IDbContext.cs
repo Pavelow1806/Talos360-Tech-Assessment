@@ -9,6 +9,6 @@
 
         IQueryable<Product> Products { get; }
 
-        List<BasketItem> BasketItems { get; set; }
+        Dictionary<int, int> BasketItems { get; set; }
     }
 }

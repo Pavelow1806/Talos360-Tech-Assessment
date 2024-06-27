@@ -1,14 +1,15 @@
 import { Product, ResponseBase } from "src/app/shared/shared.types";
 
-export interface BasketItem extends Product {
-    basketItemId: string;
-    dateAdded: Date;
+export interface GroupedBasketItem extends Product {
+    quantity: number;
 }
 export interface BasketResponse extends ResponseBase {
-    basketItems: BasketItem[];
+    basketItems: GroupedBasketItem[];
+}
+export interface AddToBasketRequest {
+    productId: number;
 }
 export interface AddToBasketResponse extends ResponseBase {
-    item: BasketItem;
 }
 export interface RemoveFromBasketResponse extends ResponseBase {
 }

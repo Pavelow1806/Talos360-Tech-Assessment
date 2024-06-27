@@ -15,6 +15,7 @@ import { StoreSupplierComponent } from './store-supplier/store-supplier.componen
     imports: [
         CommonModule,
         SharedModule,
+        MatIconModule,
     ],
     providers: [
     ],

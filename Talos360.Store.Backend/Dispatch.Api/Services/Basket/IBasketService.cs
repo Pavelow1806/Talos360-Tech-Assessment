@@ -9,9 +9,9 @@ namespace Dispatch.Api.Services.Basket
 {
     public interface IBasketService
     {
-        BasketItem AddToBasket(int productId);
-        RemoveFromBasketResponse RemoveFromBasket(Guid basketItemId);
+        AddToBasketResponse AddToBasket(int productId);
+        RemoveFromBasketResponse RemoveFromBasket(int productId);
         ClearBasketResponse ClearBasket();
-        List<BasketItem> GetBasket();
+        List<GroupedBasketItem> GetBasket();
     }
 }

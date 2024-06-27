@@ -18,41 +18,54 @@ namespace Dispatch.Api.Services.Basket
             _dbContext = dbContext;
             _productManagement = productManagement;
         }
-        public BasketItem AddToBasket(int productId)
+        public AddToBasketResponse AddToBasket(int productId)
         {
-            var product = _productManagement.GetProduct(productId);
-            var newItem = new BasketItem
-            {
-                BasketItemId = Guid.NewGuid(),
-                DateAdded = DateTime.UtcNow,
-                Name = product.Name,
-                ProductId = product.ProductId,
-                SupplierId = product.SupplierId,
-            };
-            _dbContext.BasketItems
-                .Add(newItem);
-            return newItem;
+            if (!_dbContext.BasketItems.ContainsKey(productId))
+                _dbContext.BasketItems.Add(productId, 1);
+            else
+                _dbContext.BasketItems[productId]++;
+            return new AddToBasketResponse { Success = true };
         }
 
         public ClearBasketResponse ClearBasket()
         {
-            _dbContext.BasketItems
-                .Clear();
+            _dbContext.BasketItems.Clear();
             return new ClearBasketResponse { Success = true };
         }
 
-        public List<BasketItem> GetBasket()
+        public List<GroupedBasketItem> GetBasket()
         {
-            return _dbContext.BasketItems;
+            var basketItemIds = _dbContext.BasketItems.Keys.ToList();
+            var products = _productManagement.GetProducts(basketItemIds);
+            return products
+                .Select(p => new GroupedBasketItem
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    SupplierId = p.SupplierId,
+                    Quantity = 1
+                })
+                .GroupBy(p => p.ProductId)
+                .Select(g => new GroupedBasketItem
+                {
+                    ProductId = g.First().ProductId,
+                    Name = g.First().Name,
+                    SupplierId = g.First().SupplierId,
+                    Quantity = g.Count()
+                })
+                .ToList();
         }
 
-        public RemoveFromBasketResponse RemoveFromBasket(Guid basketItemId)
+        public RemoveFromBasketResponse RemoveFromBasket(int productId)
         {
-            var item = _dbContext.BasketItems
-                .FirstOrDefault(bi => bi.BasketItemId == basketItemId);
-            if (item != null)
-                _dbContext.BasketItems
-                    .Remove(item);
+            int currentCount = _dbContext.BasketItems[productId];
+            if (_dbContext.BasketItems.ContainsKey(productId))
+            {
+                if (currentCount > 1)
+                    _dbContext.BasketItems[productId]--;
+                else
+                    _dbContext.BasketItems.Remove(productId);
+            }                
             return new RemoveFromBasketResponse { Success = true };
         }
     }

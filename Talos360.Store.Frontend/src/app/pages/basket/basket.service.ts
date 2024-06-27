@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject } from 'rxjs';
-import { BasketItem, BasketResponse, AddToBasketResponse, RemoveFromBasketResponse, ClearBasketResponse } from './basket.types';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BasketItem, BasketResponse, AddToBasketResponse, RemoveFromBasketResponse, ClearBasketResponse, AddToBasketRequest } from './basket.types';
 
 @UntilDestroy()
 @Injectable({
@@ -10,6 +10,9 @@ import { BasketItem, BasketResponse, AddToBasketResponse, RemoveFromBasketRespon
 })
 export class BasketService {
   private $basket: BehaviorSubject<BasketItem[]> = new BehaviorSubject<BasketItem[]>([]);
+  get basket(): Observable<BasketItem[]> {
+    return this.$basket.asObservable();
+  }
 
   constructor(private httpClient: HttpClient) { }
 
@@ -19,17 +22,26 @@ export class BasketService {
     .subscribe(response => {
       if (response && response.success) {
         this.$basket.next(response.basketItems);
-      } else {
-        // Let the user know there has been an issue
       }
     });
     return this.$basket.asObservable();
   }
-  add(productId: number) {
-    return this.httpClient.post<AddToBasketResponse>("api/basket/add", {productId});
+  add(request: AddToBasketRequest) {
+    var observable = this.httpClient.post<AddToBasketResponse>("api/basket/add", request)
+    .pipe(
+      untilDestroyed(this),
+      tap(response => {
+        if (response && response.success) {
+          this.$basket.next([...this.$basket.value, response.item]);
+        }
+      })
+    )
+    return observable;
   }
   remove(basketItemId: string) {
-    return this.httpClient.post<RemoveFromBasketResponse>("api/basket/remove", {basketItemId});
+    var observable = this.httpClient.post<RemoveFromBasketResponse>("api/basket/remove", {basketItemId})
+    
+    return observable;
   }
   clear() {
     return this.httpClient.get<ClearBasketResponse>("api/basket/clear");

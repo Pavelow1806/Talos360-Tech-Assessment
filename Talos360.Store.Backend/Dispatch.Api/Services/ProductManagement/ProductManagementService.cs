@@ -26,6 +26,12 @@ namespace Dispatch.Api.Services.ProductManagement
             return _dbContext.Products
                 .ToList();
         }
+        public List<Product> GetProducts(List<int> productIds)
+        {
+            return _dbContext.Products
+                .Where(p => productIds.Contains(p.ProductId))
+                .ToList();
+        }
 
         public List<int> GetUniqueSupplierIds(List<int> productIds)
         {

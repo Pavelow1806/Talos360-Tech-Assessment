@@ -9,6 +9,7 @@ namespace Dispatch.Api.Services.ProductManagement
     {
         List<int> GetUniqueSupplierIds(List<int> productIds);
         List<Product> GetProducts();
+        List<Product> GetProducts(List<int> productIds);
         Product GetProduct(int productId);
     }
 }

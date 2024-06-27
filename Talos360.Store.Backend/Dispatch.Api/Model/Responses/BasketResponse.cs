@@ -5,6 +5,6 @@ namespace Dispatch.Api.Model.Responses
 {
     public class BasketResponse : ResponseBase
     {
-        public List<BasketItem> BasketItems { get; set; } = new List<BasketItem>();
+        public List<GroupedBasketItem> BasketItems { get; set; } = new List<GroupedBasketItem>();
     }
 }

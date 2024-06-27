@@ -1,0 +1,40 @@
+:host {
+    position: relative;
+    border-radius: 5px;
+    background: #5454541d;
+    padding: 5px 20px 5px 20px;
+}
+.overlay { 
+    opacity: 0;
+    position: absolute;
+    display: flex;
+    flex: 1 1;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.888);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    transition: 0.5s;
+    &:hover {
+        opacity: 1;
+    }
+}
+.basket-amount {
+    position: absolute;
+    bottom: -7.5px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex: 1 1;
+    pointer-events: none;
+    justify-content: center;
+}
+.amount {
+    padding: 0px 7.5px 2.5px 7.5px;
+    border-radius: 50px;
+    background: rgb(40, 40, 40);
+    color: white;
+}

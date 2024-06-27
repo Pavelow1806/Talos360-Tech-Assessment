@@ -22,6 +22,7 @@ namespace Dispatch.Api.Controllers
         public BasketResponse Get()
         {
             var items = _basketService.GetBasket();
+
             return new BasketResponse
             {
                 Success = true,
@@ -30,18 +31,14 @@ namespace Dispatch.Api.Controllers
         }
         [HttpPost]
         [Route("add")]
-        public AddToBasketResponse Add(AddToBasketRequest request)
+        public AddToBasketResponse Add([FromBody]AddToBasketRequest request)
         {
-            var newItem = _basketService.AddToBasket(request.ProductId);
-            return new AddToBasketResponse
-            {
-                Success = true,
-                Item = newItem
-            };
+            _basketService.AddToBasket(request.ProductId);
+            return new AddToBasketResponse { Success = true };
         }
         [HttpPost]
         [Route("remove")]
-        public RemoveFromBasketResponse Remove(RemoveFromBasketRequest request)
+        public RemoveFromBasketResponse Remove([FromBody]RemoveFromBasketRequest request)
         {
             return _basketService.RemoveFromBasket(request.BasketItemId);
         }

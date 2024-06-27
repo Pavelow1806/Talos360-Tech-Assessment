@@ -1,1 +1,7 @@
-<p>item works!</p>
+<h5>{{product.name}}</h5>
+<div class="overlay" (click)="addToBasket()">
+    <mat-icon>{{added ? 'done' : 'add_shopping_cart'}}</mat-icon>
+</div>
+<div class="basket-amount">
+    <div class="amount">{{currentItemCount}}</div>
+</div>
