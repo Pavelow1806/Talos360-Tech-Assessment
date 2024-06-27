@@ -1,0 +1,7 @@
+:host {
+    max-width: 800px;
+    --padding: 15px;
+    width: calc(100% - var(--padding));
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+}

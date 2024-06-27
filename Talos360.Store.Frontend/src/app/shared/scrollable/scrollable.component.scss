@@ -1,0 +1,11 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+}
+.scrollable {
+    display: flex;
+    height: 0px;
+    flex-direction: column;
+}

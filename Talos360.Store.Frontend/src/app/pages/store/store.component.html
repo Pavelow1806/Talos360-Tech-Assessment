@@ -1,0 +1,12 @@
+<app-max-width>
+    <h1>Store</h1>
+    <div class="column gap" *ngIf="!loaded">
+        <div>Loading...</div>
+        <app-spinner></app-spinner>
+    </div>
+    <app-scrollable *ngIf="loaded">
+        <div class="column gap">
+            <app-store-item></app-store-item>
+        </div>
+    </app-scrollable>
+</app-max-width>
