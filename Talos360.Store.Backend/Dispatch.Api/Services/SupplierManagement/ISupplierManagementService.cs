@@ -8,6 +8,7 @@ namespace Dispatch.Api.Services.SupplierManagement
 {
     public interface ISupplierManagementService
     {
-        Task<int> FindMaxLeadTime(List<int> supplierIds, CancellationToken cancellationToken);
+        List<Supplier> GetSuppliers();
+        int FindMaxLeadTime(List<int> supplierIds);
     }
 }

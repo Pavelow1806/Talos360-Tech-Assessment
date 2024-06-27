@@ -21,11 +21,11 @@
             _dispatchEestimation = dispatchEstimation;
         }
         [HttpPost]
-        public async Task<DispatchDateResponse> Post(EstimateDispatchDateRequest request, CancellationToken cancellationToken)
+        public DispatchDateResponse Post(EstimateDispatchDateRequest request)
         {
             if (request == null || request.ProductIds == null || request.ProductIds.Count == 0)
                 return new DispatchDateResponse { Success = false, Message = "Invalid request, please ensure an array of Product Ids is provided." };
-            return await _dispatchEestimation.EstimateDispatchDate(request.ProductIds, request.OrderDate, cancellationToken);
+            return _dispatchEestimation.EstimateDispatchDate(request.ProductIds, request.OrderDate);
         }
     }
 }

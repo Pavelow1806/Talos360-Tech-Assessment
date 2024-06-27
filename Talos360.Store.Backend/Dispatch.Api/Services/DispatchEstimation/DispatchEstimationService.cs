@@ -18,17 +18,17 @@ namespace Dispatch.Api.Services.DispatchEstimation
             _productManagement = productManagement;
             _supplierManagement = supplierManagement;
         }
-        public async Task<DispatchDateResponse> EstimateDispatchDate(List<int> productIds, DateTimeOffset orderDate, CancellationToken cancellationToken)
+        public DispatchDateResponse EstimateDispatchDate(List<int> productIds, DateTimeOffset orderDate)
         {
-            var maxLeadDays = await FindMaxLeadTime(productIds, cancellationToken);
+            var maxLeadDays = FindMaxLeadTime(productIds);
             var maxLeadTime = orderDate.AddDays(maxLeadDays);
             return new DispatchDateResponse { Date = maxLeadTime.AvoidWeekend() };
         }
-        private async Task<int> FindMaxLeadTime(List<int> productIds, CancellationToken cancellationToken)
+        private int FindMaxLeadTime(List<int> productIds)
         {
             DateTimeOffset result;
-            var uniqueSupplierIds = await _productManagement.GetUniqueSupplierIds(productIds, cancellationToken);
-            return await _supplierManagement.FindMaxLeadTime(uniqueSupplierIds, cancellationToken);
+            var uniqueSupplierIds = _productManagement.GetUniqueSupplierIds(productIds);
+            return _supplierManagement.FindMaxLeadTime(uniqueSupplierIds);
         }
     }
 }

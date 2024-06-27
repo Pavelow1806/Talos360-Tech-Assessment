@@ -18,9 +18,9 @@ namespace Dispatch.Api.Services.Basket
             _dbContext = dbContext;
             _productManagement = productManagement;
         }
-        public async Task<BasketItem> AddToBasket(int productId, CancellationToken cancellationToken)
+        public BasketItem AddToBasket(int productId)
         {
-            var product = await _productManagement.GetProduct(productId, cancellationToken);
+            var product = _productManagement.GetProduct(productId);
             var newItem = new BasketItem
             {
                 BasketItemId = Guid.NewGuid(),

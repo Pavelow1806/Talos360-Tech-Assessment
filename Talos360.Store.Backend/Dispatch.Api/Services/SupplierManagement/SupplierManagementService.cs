@@ -16,12 +16,18 @@ namespace Dispatch.Api.Services.SupplierManagement
             _dbContext = dbContext;
         }
 
-        public async Task<int> FindMaxLeadTime(List<int> supplierIds, CancellationToken cancellationToken)
+        public int FindMaxLeadTime(List<int> supplierIds)
         {
-            return await _dbContext.Suppliers
+            return _dbContext.Suppliers
                 .Where(s => supplierIds.Contains(s.SupplierId))
                 .Select(s => s.LeadTime)
-                .MaxAsync(cancellationToken);
+                .Max();
+        }
+
+        public List<Supplier> GetSuppliers()
+        {
+            return _dbContext.Suppliers
+                .ToList();
         }
     }
 }

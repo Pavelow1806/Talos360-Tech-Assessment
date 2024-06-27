@@ -7,8 +7,8 @@ namespace Dispatch.Api.Services.ProductManagement
 {
     public interface IProductManagementService
     {
-        Task<List<int>> GetUniqueSupplierIds(List<int> productIds, CancellationToken cancellationToken);
-        Task<List<Product>> GetProducts(CancellationToken cancellationToken);
-        Task<Product> GetProduct(int productId, CancellationToken cancellationToken);
+        List<int> GetUniqueSupplierIds(List<int> productIds);
+        List<Product> GetProducts();
+        Product GetProduct(int productId);
     }
 }

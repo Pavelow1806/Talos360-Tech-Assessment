@@ -11,6 +11,7 @@ import { Product } from 'src/app/shared/shared.types';
 })
 export class StoreComponent implements OnInit {
   loaded = false;
+  error = false;
   products: Product[] = [];
 
   constructor(private storeService: StoreService) {}
@@ -20,12 +21,17 @@ export class StoreComponent implements OnInit {
   }
 
   load() {
+    this.error = false;
     this.loaded = false;
     this.storeService.get()
     .pipe(untilDestroyed(this))
     .subscribe(products => {
-      this.products = products;
-      this.loaded = true;
+      if (products == "error") {
+        this.error = true;
+      } else if (products) {
+        this.products = products;
+        this.loaded = true;
+      }
     });
   }
 }

@@ -30,9 +30,9 @@ namespace Dispatch.Api.Controllers
         }
         [HttpPost]
         [Route("add")]
-        public async Task<AddToBasketResponse> Add(AddToBasketRequest request, CancellationToken cancellationToken)
+        public AddToBasketResponse Add(AddToBasketRequest request)
         {
-            var newItem = await _basketService.AddToBasket(request.ProductId, cancellationToken);
+            var newItem = _basketService.AddToBasket(request.ProductId);
             return new AddToBasketResponse
             {
                 Success = true,

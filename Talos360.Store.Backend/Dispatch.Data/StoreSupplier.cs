@@ -1,9 +1,10 @@
-﻿using Dispatch.Data;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Dispatch.Api.Model.Responses
+namespace Dispatch.Data
 {
-    public class ItemsResponse : ResponseBase
+    public class StoreSupplier : Supplier
     {
         public List<Product> Products { get; set; } = new List<Product>();
     }

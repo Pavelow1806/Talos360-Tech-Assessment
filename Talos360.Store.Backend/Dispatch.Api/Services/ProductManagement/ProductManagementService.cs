@@ -15,25 +15,25 @@ namespace Dispatch.Api.Services.ProductManagement
             _dbContext = dbContext;
         }
 
-        public async Task<Product> GetProduct(int productId, CancellationToken cancellationToken)
+        public Product GetProduct(int productId)
         {
-            return await _dbContext.Products
-                .FirstOrDefaultAsync(p => p.ProductId == productId, cancellationToken);
+            return _dbContext.Products
+                .FirstOrDefault(p => p.ProductId == productId);
         }
 
-        public async Task<List<Product>> GetProducts(CancellationToken cancellationToken)
+        public List<Product> GetProducts()
         {
-            return await _dbContext.Products
-                .ToListAsync(cancellationToken);
+            return _dbContext.Products
+                .ToList();
         }
 
-        public async Task<List<int>> GetUniqueSupplierIds(List<int> productIds, CancellationToken cancellationToken)
+        public List<int> GetUniqueSupplierIds(List<int> productIds)
         {
-            return await _dbContext.Products
+            return _dbContext.Products
                 .Where(p => productIds.Contains(p.ProductId))
                 .Select(p => p.SupplierId)
                 .Distinct()
-                .ToListAsync(cancellationToken);
+                .ToList();
         }
     }
 }
