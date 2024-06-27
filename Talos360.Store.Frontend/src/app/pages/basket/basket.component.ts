@@ -3,6 +3,7 @@ import { BasketService } from './basket.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { GroupedBasketItem } from './basket.types';
 import { StoreService } from '../store/store.service';
+import { map, switchMap, tap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -21,6 +22,7 @@ export class BasketComponent {
     "quantity",
     "control"
   ]
+  estimatedDeliveryDate: Date | undefined = undefined;
 
   constructor(private basketService: BasketService, private storeService: StoreService) {}
 
@@ -42,6 +44,21 @@ export class BasketComponent {
         }
       });
       this.loaded = true;
+    });
+    this.basketService.basket
+    .pipe(
+      untilDestroyed(this),
+      tap(basket => console.log(basket)),
+      switchMap(basket => this.basketService.calculateEstimatedDeliveryDate({
+        productIds: basket.map(i => i.productId),
+        orderDate: new Date()
+      }))
+    )
+    .subscribe(response => {
+      console.log(response)
+      if (response && response.success) {
+        this.estimatedDeliveryDate = response.date;
+      }
     });
   }
   remove(element: GroupedBasketItem) {

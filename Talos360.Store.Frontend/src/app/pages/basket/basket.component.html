@@ -47,5 +47,8 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+        <div>
+            Estimated delivery date: {{estimatedDeliveryDate | date:'dd/MM/yyyy'}}
+        </div>
     </app-max-width>
 </app-scrollable>

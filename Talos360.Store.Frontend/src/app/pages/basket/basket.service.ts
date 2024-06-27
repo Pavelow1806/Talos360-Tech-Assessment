@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { BasketResponse, AddToBasketResponse, RemoveFromBasketResponse, ClearBasketResponse, AddToBasketRequest, GroupedBasketItem, RemoveFromBasketRequest } from './basket.types';
+import { BasketResponse, AddToBasketResponse, RemoveFromBasketResponse, ClearBasketResponse, AddToBasketRequest, GroupedBasketItem, RemoveFromBasketRequest, DispatchDateResponse, EstimateDispatchDateRequest } from './basket.types';
 import { StoreService } from '../store/store.service';
 
 @UntilDestroy()
@@ -71,5 +71,8 @@ export class BasketService {
   }
   clear() {
     return this.httpClient.get<ClearBasketResponse>("api/basket/clear");
+  }
+  calculateEstimatedDeliveryDate(request: EstimateDispatchDateRequest) {
+    return this.httpClient.post<DispatchDateResponse>("api/dispatchdate", request)
   }
 }

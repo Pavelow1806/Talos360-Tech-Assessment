@@ -21,3 +21,10 @@ export interface RemoveFromBasketResponse extends ResponseBase {
 }
 export interface ClearBasketResponse extends ResponseBase {
 }
+export interface EstimateDispatchDateRequest {
+    productIds: number[];
+    orderDate: Date;
+}
+export interface DispatchDateResponse extends ResponseBase {
+    date: Date;
+}

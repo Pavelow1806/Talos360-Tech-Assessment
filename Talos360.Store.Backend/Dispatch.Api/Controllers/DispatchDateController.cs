@@ -21,7 +21,7 @@
             _dispatchEestimation = dispatchEstimation;
         }
         [HttpPost]
-        public DispatchDateResponse Post(EstimateDispatchDateRequest request)
+        public DispatchDateResponse Post([FromBody]EstimateDispatchDateRequest request)
         {
             if (request == null || request.ProductIds == null || request.ProductIds.Count == 0)
                 return new DispatchDateResponse { Success = false, Message = "Invalid request, please ensure an array of Product Ids is provided." };
