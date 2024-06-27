@@ -3,8 +3,19 @@
     src: local("Raleway"), url('./assets/fonts/Raleway-Regular.ttf') format("truetype");
 }
 
-html {
+html, body {
+    padding: 0px;
+    margin: 0;
+    border: 0px;
     font-family: "Raleway";
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+app-root { 
+    height: 100%;
+    width: 100%;
+    bottom: 0px;
 }
 
 .row {

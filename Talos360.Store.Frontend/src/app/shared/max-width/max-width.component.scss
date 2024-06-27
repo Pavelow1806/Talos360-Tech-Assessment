@@ -5,3 +5,13 @@
     padding-left: var(--padding);
     padding-right: var(--padding);
 }
+@media only screen and (max-width: 300px) {
+    :host {
+        --padding: 5px;
+    }
+}
+@media only screen and (min-width: 300px) and (max-width: 500px) {
+    :host {
+        --padding: 10px;
+    }
+}

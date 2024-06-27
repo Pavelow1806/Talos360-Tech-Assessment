@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StoreService } from './store.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Product } from 'src/app/shared/shared.types';
+import { StoreSupplier } from './store.types';
 
 @UntilDestroy()
 @Component({
@@ -12,7 +13,7 @@ import { Product } from 'src/app/shared/shared.types';
 export class StoreComponent implements OnInit {
   loaded = false;
   error = false;
-  products: Product[] = [];
+  suppliers: StoreSupplier[] = [];
 
   constructor(private storeService: StoreService) {}
 
@@ -25,11 +26,11 @@ export class StoreComponent implements OnInit {
     this.loaded = false;
     this.storeService.get()
     .pipe(untilDestroyed(this))
-    .subscribe(products => {
-      if (products == "error") {
+    .subscribe(suppliers => {
+      if (suppliers == "error") {
         this.error = true;
-      } else if (products) {
-        this.products = products;
+      } else if (suppliers) {
+        this.suppliers = suppliers;
         this.loaded = true;
       }
     });

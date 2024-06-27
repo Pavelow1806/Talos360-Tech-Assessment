@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-scrollable',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./scrollable.component.scss']
 })
 export class ScrollableComponent {
-
+  @Input("contentCentered") contentCentered = true;
 }

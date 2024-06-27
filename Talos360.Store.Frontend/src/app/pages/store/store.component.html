@@ -1,19 +1,19 @@
-<app-max-width>
-    <h1>Store</h1>
-    <div class="column gap" *ngIf="!loaded && !error">
-        <h3>Loading</h3>
-        <app-spinner></app-spinner>
-    </div>
-    <div class="column gap" *ngIf="!loaded && error">
-        <h3>Error</h3>
-        <div>There was an issue loading the store, click to try again.</div>
-        <button (click)="load()">
-            Retry
-        </button>
-    </div>
-    <app-scrollable *ngIf="loaded">
-        <div class="column gap">
-            <app-store-item></app-store-item>
+<app-scrollable>
+    <app-max-width>
+        <h1>Store</h1>
+        <div class="column gap" *ngIf="!loaded && !error">
+            <h3>Loading</h3>
+            <app-spinner></app-spinner>
         </div>
-    </app-scrollable>
-</app-max-width>
+        <div class="column gap" *ngIf="!loaded && error">
+            <h3>Error</h3>
+            <div>There was an issue loading the store, click to try again.</div>
+            <button (click)="load()">
+                Retry
+            </button>
+        </div>
+        <div class="column gap" *ngIf="loaded">
+            <app-store-supplier *ngFor="let supplier of suppliers" [supplier]="supplier"></app-store-supplier>
+        </div>
+    </app-max-width>
+</app-scrollable>

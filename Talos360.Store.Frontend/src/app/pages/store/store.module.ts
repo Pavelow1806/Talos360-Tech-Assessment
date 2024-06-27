@@ -3,12 +3,14 @@ import { MatIconModule } from "@angular/material/icon";
 import { StoreComponent } from "./store.component";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "src/app/shared/shared.module";
-import { ItemComponent } from './store-item/store-item.component';
+import { StoreProductComponent } from './store-supplier/store-product/store-product.component';
+import { StoreSupplierComponent } from './store-supplier/store-supplier.component';
 
 @NgModule({
     declarations: [
         StoreComponent,
-        ItemComponent,
+        StoreProductComponent,
+        StoreSupplierComponent,
     ],
     imports: [
         CommonModule,
