@@ -15,6 +15,7 @@
 - Only one of the 5 unit tests passed due to it using todays date (and the test being ran on a Saturday).
 - The tests aren't written in a way consistent to the AAA testing pattern
 - Tests don't provide sufficient coverage against acceptance criteria.
+- Functionality doesn't actually pass against tests written specifically for the acceptance criteria.
 #### Q2
 > How did you improve these issues? What principles did you use in your solution?
 - Added ResponseBase abstract class for response classes to use to add whether the request has been successful and if there were any messages.
@@ -29,6 +30,8 @@
 - Added a new service for managing products and another for managing suppliers, and added it to dependency injection.
 - Made extension class for DateTimeOffset to avoid the weekend.
 - Modified tests to follow AAA testing and to keep to the acceptance criteria.
+- Added a test base class for test setup.
+- Added tests for individual services.
 #### Notes
 - These services are designed to be individual and extendable to allow access or modifications to have minimal impact in the future.
 - I think the patterns I've used is overkill in this case but I'm just trying to demonstrate best practice.
