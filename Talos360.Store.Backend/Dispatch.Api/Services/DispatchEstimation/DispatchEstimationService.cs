@@ -21,8 +21,8 @@ namespace Dispatch.Api.Services.DispatchEstimation
         public DispatchDateResponse EstimateDispatchDate(List<int> productIds, DateTimeOffset orderDate)
         {
             var maxLeadDays = FindMaxLeadTime(productIds);
-            var maxLeadTime = orderDate.AddDays(maxLeadDays);
-            return new DispatchDateResponse { EstimatedDispatchDate = maxLeadTime.AvoidWeekend() };
+            var maxLeadTime = orderDate.AddWorkingDays(maxLeadDays);
+            return new DispatchDateResponse { EstimatedDispatchDate = maxLeadTime };
         }
         private int FindMaxLeadTime(List<int> productIds)
         {

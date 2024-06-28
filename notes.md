@@ -28,7 +28,7 @@
 - Added a new service called DispatchEstimationService to dependancy injection and moved the primarily functionality to the service.
 - Split the original functionality into 2 function calls within the service, each with their own responsibility.
 - Added a new service for managing products and another for managing suppliers, and added it to dependency injection.
-- Made extension class for DateTimeOffset to avoid the weekend.
+- Made extension class for DateTimeOffset to add days to the order date and to ignore weekends.
 - Modified tests to follow AAA testing and to keep to the acceptance criteria.
 - Added a test base class for test setup.
 - Added tests for individual services.
