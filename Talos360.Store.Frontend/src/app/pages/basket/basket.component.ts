@@ -57,7 +57,7 @@ export class BasketComponent {
     .subscribe(response => {
       console.log(response)
       if (response && response.success) {
-        this.estimatedDeliveryDate = response.date;
+        this.estimatedDeliveryDate = response.estimatedDispatchDate;
       }
     });
   }

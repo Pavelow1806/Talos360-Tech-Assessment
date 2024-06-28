@@ -26,5 +26,5 @@ export interface EstimateDispatchDateRequest {
     orderDate: Date;
 }
 export interface DispatchDateResponse extends ResponseBase {
-    date: Date;
+    estimatedDispatchDate: Date;
 }
