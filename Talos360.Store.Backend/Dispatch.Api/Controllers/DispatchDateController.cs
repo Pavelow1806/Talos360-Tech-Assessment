@@ -17,7 +17,7 @@
             _dispatchEestimation = dispatchEstimation;
         }
         [HttpGet]
-        public DispatchDateResponse Get(List<int> productIds, DateTimeOffset orderDate)
+        public DispatchDateResponse Get([FromQuery]List<int> productIds, [FromQuery] DateTime orderDate)
         {
             if (productIds == null || productIds.Count() == 0)
                 return new DispatchDateResponse { Success = false, Message = "Invalid request, please ensure an array of Product Ids is provided." };

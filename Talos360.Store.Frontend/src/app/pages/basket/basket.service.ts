@@ -73,6 +73,6 @@ export class BasketService {
     return this.httpClient.get<ClearBasketResponse>("api/basket/clear");
   }
   calculateEstimatedDeliveryDate(request: EstimateDispatchDateRequest) {
-    return this.httpClient.post<DispatchDateResponse>("api/dispatchdate", request)
+    return this.httpClient.get<DispatchDateResponse>(`api/dispatchdate?productIds=${request.productIds}&orderDate=${request.orderDate}`)
   }
 }

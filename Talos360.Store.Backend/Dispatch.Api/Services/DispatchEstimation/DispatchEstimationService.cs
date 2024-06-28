@@ -18,7 +18,7 @@ namespace Dispatch.Api.Services.DispatchEstimation
             _productManagement = productManagement;
             _supplierManagement = supplierManagement;
         }
-        public DispatchDateResponse EstimateDispatchDate(List<int> productIds, DateTimeOffset orderDate)
+        public DispatchDateResponse EstimateDispatchDate(List<int> productIds, DateTime orderDate)
         {
             var maxLeadDays = FindMaxLeadTime(productIds);
             var maxLeadTime = orderDate.AddWorkingDays(maxLeadDays);
@@ -26,7 +26,7 @@ namespace Dispatch.Api.Services.DispatchEstimation
         }
         private int FindMaxLeadTime(List<int> productIds)
         {
-            DateTimeOffset result;
+            DateTime result;
             var uniqueSupplierIds = _productManagement.GetUniqueSupplierIds(productIds);
             return _supplierManagement.FindMaxLeadTime(uniqueSupplierIds);
         }

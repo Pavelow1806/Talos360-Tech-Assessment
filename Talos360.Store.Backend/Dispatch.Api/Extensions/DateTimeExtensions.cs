@@ -2,9 +2,9 @@
 
 namespace Dispatch.Api.Extensions
 {
-    public static class DateTimeOffsetExtensions
+    public static class DateTimeExtensions
     {
-        public static DateTimeOffset AddWorkingDays(this DateTimeOffset from, int days) 
+        public static DateTime AddWorkingDays(this DateTime from, int days) 
         {
             var unassigned = days;
             var result = from;

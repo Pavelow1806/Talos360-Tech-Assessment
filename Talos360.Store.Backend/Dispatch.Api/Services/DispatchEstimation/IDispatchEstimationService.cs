@@ -8,6 +8,6 @@ namespace Dispatch.Api.Services.DispatchEstimation
 {
     public interface IDispatchEstimationService
     {
-        DispatchDateResponse EstimateDispatchDate(List<int> productIds, DateTimeOffset orderDate);
+        DispatchDateResponse EstimateDispatchDate(List<int> productIds, DateTime orderDate);
     }
 }

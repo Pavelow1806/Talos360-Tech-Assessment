@@ -4,6 +4,6 @@
 
     public class DispatchDateResponse : ResponseBase
     {
-        public DateTimeOffset EstimatedDispatchDate { get; set; }
+        public DateTime EstimatedDispatchDate { get; set; }
     }
 }

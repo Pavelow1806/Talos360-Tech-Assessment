@@ -26,8 +26,8 @@
                 .Select(d => d.product.SupplierId)
                 .Distinct()
                 .ToList();
-            var orderDate = new DateTimeOffset(orderYear, orderMonth, orderDay, 0, 0, 0, TimeSpan.Zero);
-            var expectedDate = new DateTimeOffset(expectedYear, expectedMonth, expectedDay, 0, 0, 0, TimeSpan.Zero);
+            var orderDate = new DateTime(orderYear, orderMonth, orderDay, 0, 0, 0);
+            var expectedDate = new DateTime(expectedYear, expectedMonth, expectedDay, 0, 0, 0);
             _mockProductManagement
                 .Setup(pm => pm.GetUniqueSupplierIds(productIds))
                 .Returns(uniqueSupplierIds);
@@ -56,8 +56,8 @@
                 .Select(d => d.product.SupplierId)
                 .Distinct()
                 .ToList();
-            var orderDate = new DateTimeOffset(orderYear, orderMonth, orderDay, 0, 0, 0, TimeSpan.Zero);
-            var expectedDate = new DateTimeOffset(expectedYear, expectedMonth, expectedDay, 0, 0, 0, TimeSpan.Zero);
+            var orderDate = new DateTime(orderYear, orderMonth, orderDay, 0, 0, 0);
+            var expectedDate = new DateTime(expectedYear, expectedMonth, expectedDay, 0, 0, 0);
             _mockProductManagement
                 .Setup(pm => pm.GetUniqueSupplierIds(productIds))
                 .Returns(uniqueSupplierIds);
@@ -88,8 +88,8 @@
                 .Select(d => d.product.SupplierId)
                 .Distinct()
                 .ToList();
-            var orderDate = new DateTimeOffset(orderYear, orderMonth, orderDay, 0, 0, 0, TimeSpan.Zero);
-            var expectedDate = new DateTimeOffset(expectedYear, expectedMonth, expectedDay, 0, 0, 0, TimeSpan.Zero);
+            var orderDate = new DateTime(orderYear, orderMonth, orderDay, 0, 0, 0);
+            var expectedDate = new DateTime(expectedYear, expectedMonth, expectedDay, 0, 0, 0);
             _mockProductManagement
                 .Setup(pm => pm.GetUniqueSupplierIds(productIds))
                 .Returns(uniqueSupplierIds);
@@ -119,8 +119,8 @@
                 .Select(d => d.product.SupplierId)
                 .Distinct()
                 .ToList();
-            var orderDate = new DateTimeOffset(orderYear, orderMonth, orderDay, 0, 0, 0, TimeSpan.Zero);
-            var expectedDate = new DateTimeOffset(expectedYear, expectedMonth, expectedDay, 0, 0, 0, TimeSpan.Zero);
+            var orderDate = new DateTime(orderYear, orderMonth, orderDay, 0, 0, 0);
+            var expectedDate = new DateTime(expectedYear, expectedMonth, expectedDay, 0, 0, 0);
             _mockProductManagement
                 .Setup(pm => pm.GetUniqueSupplierIds(productIds))
                 .Returns(uniqueSupplierIds);
