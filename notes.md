@@ -1,34 +1,40 @@
-# James Coyle Notes
+# James Coyle Technical Assessment
 
-## Tasks
-
-### Task 1 & 2
-#### Problems found
+#### Questions
+##### Q1
+> What points would you bring up to the junior dev in your review and refactor of stories 1 & 2?
 - SOLID not followed particularly well based on how the Get function in the controller is doing all of the work.
 - Solution not scalable when more functionality is added later.
 - No need to have a public variable when it's only used by one method inside the request scope.
+- The response class name doesn't signify its purpose in the system.
+	- The Date field is too much of a generic name for other developers to understand what it's value represents.
 - Using foreach in this case is redundant
 	- DbContext is being made on every iteration potentially using more memory than required.
 	- The "database" is being hit twice on every iteration.
 - Using an if statement makes it difficult to read, even if it was going to be used, consistent curly braces should be used to promote readability.
-#### Notes
-- Made controller Get function asynchronous and added the cancellation token.
+- Only one of the 5 unit tests passed due to it using todays date (and the test being ran on a Saturday).
+- The tests aren't written in a way consistent to the AAA testing pattern
+- Tests don't provide sufficient coverage against acceptance criteria.
+#### Q2
+> How did you improve these issues? What principles did you use in your solution?
 - Added ResponseBase abstract class for response classes to use to add whether the request has been successful and if there were any messages.
 - Added null reference and invalid parameter checks before processing request.
-- Changed the input request variables into a request class and changed the controller function definition to a HttpPost.
+- Renamed DispatchDate to DispatchDateResponse to signify its purpose within the system.
+- Renamed Date field to EstimatedDispatchDate within DispatchDateResponse.
 - Created requests and responses folders to allow the solution to be managable as it scales.
-- Renamed DispatchDate to DispatchDateResponse to signify what its purpose is.
 - Changed the orderDate field type to DateTimeOffset to ensure when the API is used overseas timezone differences are kept in mind.
 - Added DbContext as injectable service.
-- Created the DispatchEstimationService using dependancy injection and code reuse.
-- Moved primary responsibility to the new service.
-- Split the original functionality into 2 function calls each with their own responsibility.
-- Added service for managing products, and added it to dependency injection.
-- Added service for managing suppliers, and added it to dependency injection.
-- Made extension class for DateTimeOffset to add the required amount of days.
+- Added a new service called DispatchEstimationService to dependancy injection and moved the primarily functionality to the service.
+- Split the original functionality into 2 function calls within the service, each with their own responsibility.
+- Added a new service for managing products and another for managing suppliers, and added it to dependency injection.
+- Made extension class for DateTimeOffset to avoid the weekend.
+- Modified tests to follow AAA testing and to keep to the acceptance criteria.
+#### Notes
 - These services are designed to be individual and extendable to allow access or modifications to have minimal impact in the future.
 - I think the patterns I've used is overkill in this case but I'm just trying to demonstrate best practice.
 
-
 ### Task 3
-- I've made the db context a singleton, which would never be the case in the real world but with the absense of a real database this was the easiest thing to do to create a basket in memory.
+#### Notes
+- Added angular frontend based on the requirements.
+- In order to create an in-memory basket, I've added a new property to the DbContext and IDbContext class and interface and instead of injecting it as a Scoped service, I've switched it to Singleton to maintain the variables values whilst running.
+- 

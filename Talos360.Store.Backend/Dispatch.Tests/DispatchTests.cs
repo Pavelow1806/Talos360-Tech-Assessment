@@ -6,46 +6,86 @@
     using Shouldly;
     using Xunit;
 
-    public class DispatchTests
+    public class DispatchTests: DispatchTestingBase
     {
         [Fact]
         public void OneProductWithLeadTimeOfOneDay()
         {
-            DispatchDateController controller = new DispatchDateController();
-            var date = controller.Get(new List<int>() {1}, DateTime.Now);
-            date.Date.Date.ShouldBe(DateTime.Now.Date.AddDays(1));
+            // Arrange
+            var controller = new DispatchDateController(DispatchEstimation);
+            var productIds = new List<int>() { 1 };
+            var orderDate = new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
+            var expectedDate = orderDate.AddDays(1);
+
+            // Act
+            var response = controller.Get(productIds, orderDate);
+
+            // Assert
+            response.EstimatedDispatchDate.ShouldBe(expectedDate);
         }
 
         [Fact]
         public void OneProductWithLeadTimeOfTwoDay()
         {
-            DispatchDateController controller = new DispatchDateController();
-            var date = controller.Get(new List<int>() { 2 }, DateTime.Now);
-            date.Date.Date.ShouldBe(DateTime.Now.Date.AddDays(2));
+            // Arrange
+            var controller = new DispatchDateController(DispatchEstimation);
+            var productIds = new List<int>() { 2 };
+            var orderDate = new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
+            var expectedDate = orderDate.AddDays(2);
+
+            // Act
+            var response = controller.Get(productIds, orderDate);
+
+            // Assert
+            response.EstimatedDispatchDate.ShouldBe(expectedDate);
         }
 
         [Fact]
         public void OneProductWithLeadTimeOfThreeDay()
         {
-            DispatchDateController controller = new DispatchDateController();
-            var date = controller.Get(new List<int>() { 3 }, DateTime.Now);
-            date.Date.Date.ShouldBe(DateTime.Now.Date.AddDays(3));
+            // Arrange
+            var controller = new DispatchDateController(DispatchEstimation);
+            var productIds = new List<int>() { 3 };
+            var orderDate = new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
+            var expectedDate = orderDate.AddDays(3);
+
+            // Act
+            var response = controller.Get(productIds, orderDate);
+
+            // Assert
+            response.EstimatedDispatchDate.ShouldBe(expectedDate);
         }
 
         [Fact]
         public void SaturdayHasExtraTwoDays()
         {
-            DispatchDateController controller = new DispatchDateController();
-            var date = controller.Get(new List<int>() { 1 }, new DateTime(2024,1,26));
-            date.Date.ShouldBe(new DateTime(2018, 1, 26).Date.AddDays(3));
+            // Arrange
+            var controller = new DispatchDateController(DispatchEstimation);
+            var productIds = new List<int>() { 1 };
+            var orderDate = new DateTimeOffset(2024, 1, 26, 0, 0, 0, TimeSpan.Zero);
+            var expectedDate = orderDate.AddDays(3);
+
+            // Act
+            var response = controller.Get(productIds, orderDate);
+
+            // Assert
+            response.EstimatedDispatchDate.ShouldBe(expectedDate);
         }
 
         [Fact]
         public void SundayHasExtraDay()
         {
-            DispatchDateController controller = new DispatchDateController();
-            var date = controller.Get(new List<int>() { 3 }, new DateTime(2024, 1, 25));
-            date.Date.ShouldBe(new DateTime(2018, 1, 25).Date.AddDays(4));
+            // Arrange
+            var controller = new DispatchDateController(DispatchEstimation);
+            var productIds = new List<int>() { 3 };
+            var orderDate = new DateTimeOffset(2024, 1, 25, 0, 0, 0, TimeSpan.Zero);
+            var expectedDate = orderDate.AddDays(4);
+
+            // Act
+            var response = controller.Get(productIds, orderDate);
+
+            // Assert
+            response.EstimatedDispatchDate.ShouldBe(expectedDate);
         }
     }
 }

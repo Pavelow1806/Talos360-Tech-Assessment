@@ -11,7 +11,7 @@ namespace Dispatch.Api.Services.DispatchEstimation
 {
     public class DispatchEstimationService : IDispatchEstimationService
     {
-        public readonly IProductManagementService _productManagement;
+        private readonly IProductManagementService _productManagement;
         private readonly ISupplierManagementService _supplierManagement;
         public DispatchEstimationService(IProductManagementService productManagement, ISupplierManagementService supplierManagement)
         {
@@ -22,7 +22,7 @@ namespace Dispatch.Api.Services.DispatchEstimation
         {
             var maxLeadDays = FindMaxLeadTime(productIds);
             var maxLeadTime = orderDate.AddDays(maxLeadDays);
-            return new DispatchDateResponse { Date = maxLeadTime.AvoidWeekend() };
+            return new DispatchDateResponse { EstimatedDispatchDate = maxLeadTime.AvoidWeekend() };
         }
         private int FindMaxLeadTime(List<int> productIds)
         {
